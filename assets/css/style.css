@@ -2,19 +2,19 @@ body{
     background-image: url("../images/pink dust.png");
 }
 .card{
-background-color:#945664;
-color:#ccc;
+background-color:#996666;
+color:#eee;
 margin:2%;
-padding:5%;
+padding:3%;
 border-radius: 2%;
 border:solid 5px #383b39; 
 }
-.text-body{
-    padding:5%;
-    margin:5%;
+.card-img-top{
+    height:250px;
+    width:250px;
+    border:solid 1px #eee;
 }
 .card-footer{
-    background-color:#ddd;
-    color:#666;
-    border:solid 2px #666;
+    background-color:#3e3c3d;
+    color:#ccc;
 }
