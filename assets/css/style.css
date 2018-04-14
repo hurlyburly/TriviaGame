@@ -17,4 +17,7 @@ border:solid 5px #383b39;
 .card-footer{
     background-color:#3e3c3d;
     color:#ccc;
+} 
+.trivia-answer{
+    margin:5%;
 }
