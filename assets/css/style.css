@@ -14,10 +14,15 @@ border:solid 5px #383b39;
     width:250px;
     border:solid 1px #eee;
 }
-.card-footer{
+.footer{
     background-color:#3e3c3d;
     color:#ccc;
+    position: fixed;
+    bottom:0;
 } 
+.final-score{
+    display: none;
+}
 .trivia-answer{
     margin:5%;
 }

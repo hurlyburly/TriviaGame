@@ -18,13 +18,9 @@
                 <div class="card main-body">
                     <h2>Trivia Game</h2>
                     <p>
-                       Start the game by pressing the Start button.
-                       <br>
-                       Try to guess the correct answer. 
+                        Start the game by pressing the Start button.
+                        <br> Try to guess the correct answer.
                     </p>
-                    <h6 class="correct-count">Correct:</h6>
-                    <h6 class="incorrect-count">Incorrect:</h6>
-                    <h6 class="total-score">Score:</h6>
 
                     <div class="col-md-12">
                         <!-- slideshow portion will be the entirety of the trivia-panel class here which includes the images, information, timer, and buttons -->
@@ -36,23 +32,26 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-secondary start-game">Start</button>
                                 </div>
-
-                                <p class="trivia-question">
+                                <!-- display only at end of questions -->
+                                <h6 class="final-score correct-count">Correct:</h6>
+                                <h6 class="final-score incorrect-count">Incorrect:</h6>
+                                <h6 class="final-score total-score">Score:</h6>
+                                <!-- hide only at end of questions -->
+                                <p class="final-hide trivia-question">
                                     Can you answer all of the questions correctly?
                                 </p>
-
-                                <!-- buttons here -->
+                                <!-- hide only at end of questions-->
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary trivia-answer" id="answer-a">A</button>
+                                    <button type="button" class="final-hide btn btn-secondary trivia-answer" id="answer-a">A</button>
                                 </div>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary trivia-answer" id="answer-b">B</button>
+                                    <button type="button" class="final-hide btn btn-secondary trivia-answer" id="answer-b">B</button>
                                 </div>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary trivia-answer" id="answer-c">C</button>
+                                    <button type="button" class="final-hide btn btn-secondary trivia-answer" id="answer-c">C</button>
                                 </div>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-secondary trivia-answer" id="answer-d">D</button>
+                                    <button type="button" class=" final-hide btn btn-secondary trivia-answer" id="answer-d">D</button>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="card-footer text-center">
+    <div class="footer text-center">
         Thanks for playing! If you'd like to play other games you can check out my
         <a href="https://hurlyburly.github.io/Bootstrap-Portfolio/portfolio.html">portfolio!
         </a>

@@ -8,9 +8,9 @@
 //What the user sees:
 //press start button
 //display first slide of the trivia
-//start countdown, populate image, question, update buttons
+//start countdown, populate question, update buttons
 //select answer (only once per slide)
-//if answer is correct: populate congratulations, display information, and log the correct answer to user correct guess score
+//if answer is correct: populate congratulations log the correct answer to user correct guess score
 //if answer is incorrect: populate incorrect response, display information, and log the incorrect answer to user incorrect guess score
 //if the user does not make a guess before the countdown ends: populate time out message, display information, and log the missed answer to user incorrect score.
 //Once user completes the trivia question set (10 questions?) then end slideshow and display the user score sheet with the total questions, correct score, and incorrect score.
@@ -20,12 +20,11 @@ var questions;
 var correctCount = 0;
 var incorrectCount = 0;
 var total = 15;
-var score = correctCount + "/" + total;
 var questionIndex = 0;
-var seconds = 30;
+var seconds=30;
 var timer;
-var questionSeconds = 2;
-var questionTimer;
+var nextQuestionSeconds = 2;
+var nextQuestionTimer;
 var queryURL =
   "https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=multiple";
 
@@ -42,6 +41,7 @@ function newQuestion() {
   setCountdown();
 }
 function setAnswers() {
+  //attaching position in index to button elements
   var triviaArray = questions.results[questionIndex].incorrect_answers;
   triviaArray.push(questions.results[questionIndex].correct_answer);
   shuffleAnswers(triviaArray);
@@ -52,6 +52,7 @@ function setAnswers() {
   $("#answer-d").html(triviaArray[3]);
 }
 function shuffleAnswers(array) {
+  //shuffling the position of the incorrect and correct answers in order to avoid all correct answers being listed on the fourth button
   for (let j = array.length - 1; j > 0; j--) {
     let k = Math.floor(Math.random() * (j + 1));
     [array[j], array[k]] = [array[k], array[j]];
@@ -63,22 +64,25 @@ function setCountdown() {
     if (seconds == 0) {
       clearInterval(timer);
       $(".countdown").html("Time's Out!");
-      seconds = 30;
-      loadNextQuestion();
     } else {
       $(".countdown").html("Time Left: " + seconds);
     }
   }, 1000);
+  loadNextQuestion();
 }
 function loadNextQuestion() {
-  questionTimer = setInterval(function() {
-    questionSeconds--;
-    if (questionSeconds == 0) {
-      clearInterval(questionTimer);
+  nextQuestionTimer = setInterval(function() {
+    nextQuestionSeconds--;
+    }, 1000);
+    if (nextQuestionSeconds == 0) {
+      clearInterval(nextQuestionTimer);
       nextQuestion();
-      questionSeconds = 2;
+      nextQuestionSeconds = 2;
     }
-  }, 1000);
+  if (questionIndex >= questions.results.length) {
+    $(".final-score").show();
+    $(".final-hide").hide();
+  }
 }
 function nextQuestion() {
   questionIndex++;
@@ -87,23 +91,30 @@ function nextQuestion() {
 function correctGuess() {
   correctCount++;
   $(".correct-count").html("Correct: " + correctCount);
+  $(".trivia-question").html("Correct!");
 }
 
 function incorrectGuess() {
   incorrectCount++;
   $(".incorrect-count").html("Incorrect: " + incorrectCount);
+  $(".trivia-question").html("Incorrect!");
+}
+
+function totalScore() {
+  $(".total-score").html("Score: " + correctCount + "/" + total);
 }
 
 function countScore() {
   var guess = questions.results[questionIndex].correct_answer;
   $(".trivia-answer").on("click", function() {
-    if (guess == $(this).html() && seconds > 0) {
+    if (guess == $(this).html()) {
       correctGuess();
     } else {
       incorrectGuess();
-    }
-    loadNextQuestion();
+    }  
+    totalScore();
   });
+
 }
 
 //wrapping ajax call to trivia API
@@ -113,10 +124,7 @@ $(document).ready(function() {
     method: "GET"
   }).then(function(response) {
     questions = response;
-    newQuestion();
     countScore();
-
-
   });
 });
 
