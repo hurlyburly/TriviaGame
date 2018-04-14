@@ -39,6 +39,7 @@ function newQuestion() {
   //creating new array with all answers and shuffling the answers before attaching to each button
   setAnswers();
   setCountdown();
+
 }
 function setAnswers() {
   //attaching position in index to button elements
@@ -59,6 +60,7 @@ function shuffleAnswers(array) {
   }
 }
 function setCountdown() {
+//this is the countdown for how mush time the player has left to answer the question before the game logs their response as incorrect. 
   timer = setInterval(function() {
     seconds--;
     if (seconds == 0) {
@@ -68,17 +70,18 @@ function setCountdown() {
       $(".countdown").html("Time Left: " + seconds);
     }
   }, 1000);
-  loadNextQuestion();
+  
 }
 function loadNextQuestion() {
+//this will load the next question in the object after 2 seconds
   nextQuestionTimer = setInterval(function() {
     nextQuestionSeconds--;
     }, 1000);
     if (nextQuestionSeconds == 0) {
       clearInterval(nextQuestionTimer);
       nextQuestion();
-      nextQuestionSeconds = 2;
     }
+//once the end of the 
   if (questionIndex >= questions.results.length) {
     $(".final-score").show();
     $(".final-hide").hide();
@@ -86,12 +89,13 @@ function loadNextQuestion() {
 }
 function nextQuestion() {
   questionIndex++;
+  nextQuestionTimer=2;
   newQuestion();
 }
 function correctGuess() {
   correctCount++;
   $(".correct-count").html("Correct: " + correctCount);
-  $(".trivia-question").html("Correct!");
+  $(".trivia-question").html("Correct!")
 }
 
 function incorrectGuess() {
@@ -107,12 +111,11 @@ function totalScore() {
 function countScore() {
   var guess = questions.results[questionIndex].correct_answer;
   $(".trivia-answer").on("click", function() {
-    if (guess == $(this).html()) {
+    if (guess == $(this).html() && seconds>0) {
       correctGuess();
     } else {
       incorrectGuess();
-    }  
-    totalScore();
+    } totalScore();
   });
 
 }
@@ -124,6 +127,7 @@ $(document).ready(function() {
     method: "GET"
   }).then(function(response) {
     questions = response;
+    loadNextQuestion();
     countScore();
   });
 });
