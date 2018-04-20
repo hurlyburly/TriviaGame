@@ -30,15 +30,18 @@ var queryURL =
 
 $(".start-game").on("click", function() {
   newQuestion();
+  startCountdown();
+  $('.start-game').remove();
 });
 //getting questions and answers for trivia
 function newQuestion() {
+  console.log('NEW QUESTION')
   var trivia = $(".trivia-question").html(
     questions.results[questionIndex].question
   );
   //creating new array with all answers and shuffling the answers before attaching to each button
   setAnswers();
-  setCountdown();
+  // setCountdown();
 
 }
 function setAnswers() {
@@ -59,13 +62,16 @@ function shuffleAnswers(array) {
     [array[j], array[k]] = [array[k], array[j]];
   }
 }
-function setCountdown() {
+function startCountdown() {
+  clearInterval(timer);
 //this is the countdown for how mush time the player has left to answer the question before the game logs their response as incorrect. 
   timer = setInterval(function() {
     seconds--;
     if (seconds == 0) {
       clearInterval(timer);
       $(".countdown").html("Time's Out!");
+      seconds=30;
+     
     } else {
       $(".countdown").html("Time Left: " + seconds);
     }
@@ -78,10 +84,13 @@ function loadNextQuestion() {
     nextQuestionSeconds--;
     }, 1000);
     if (nextQuestionSeconds == 0) {
+      console.log('load next part 1')
       clearInterval(nextQuestionTimer);
+      console.log('load next part 2')
       nextQuestion();
     }
-//once the end of the 
+//once the end of the list of questions is reached
+
   if (questionIndex >= questions.results.length) {
     $(".final-score").show();
     $(".final-hide").hide();
@@ -126,8 +135,11 @@ $(document).ready(function() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    questions = response;
+    console.log('AJAX callback works!')
+    questions=response;
+    console.log("QUESTIONS: " + JSON.stringify(questions, null, 2));
     loadNextQuestion();
+    
     countScore();
   });
 });
