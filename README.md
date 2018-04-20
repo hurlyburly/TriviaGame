@@ -1,6 +1,7 @@
- TriviaGame Read Me
+ #TriviaGame Read Me
+ 
+ ****
 
-=============
 
 # Explaining the Application  
 
@@ -14,4 +15,4 @@ The theme is set to general knowledge.
 + Bootstrap
 + jQuery
 + [Open Trivia Database][OpenTDB]
-[OpenTDB]:/https://opentdb.com//"Open Trivia Database"
+[OpenTDB]:/https://opentdb.com// "Open Trivia Database"
