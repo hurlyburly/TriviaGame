@@ -1,5 +1,5 @@
  #TriviaGame Read Me
- 
+
  ****
 
 
@@ -14,5 +14,6 @@ The theme is set to general knowledge.
 # Powered By:
 + Bootstrap
 + jQuery
-+ [Open Trivia Database][OpenTDB]
-[OpenTDB]:/https://opentdb.com// "Open Trivia Database"
++ [Open Trivia Database][OpenTDB]  
+
+[OpenTDB]: https://opentdb.com/ "Open Trivia Database"
